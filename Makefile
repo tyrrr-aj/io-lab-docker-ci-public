@@ -26,7 +26,7 @@ SCHEMA_BUILD_VERSION = your app version - framework specyfic
 SCHEMA_CMD = fire
 
 VERSION = v_$(shell ./version.sh)
-VERSION_NAME = v_$(shell cat build-number.txt)
+VERSION_NAME = v_$(shell cat build-version.txt)
 
 all: push
     
