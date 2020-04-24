@@ -25,9 +25,6 @@ SCHEMA_BUILD_DATE = $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 SCHEMA_BUILD_VERSION = your app version - framework specyfic
 SCHEMA_CMD = fire
 
-VERSION = v_$(shell ./version.sh)
-VERSION_NAME = v_$(shell cat build-version.txt)
-
 all: push
     
 
@@ -45,11 +42,11 @@ image:
 		--tag $(SCHEMA_NAME):latest \
 		.
 	
-	docker tag $(SCHEMA_NAME):latest $(SCHEMA_NAME):$(VERSION)
+	docker tag $(SCHEMA_NAME):latest $(SCHEMA_NAME):$(TAG)
 	
 push: image
 	docker push $(SCHEMA_NAME):latest
-	docker push $(SCHEMA_NAME):$(VERSION_NAME)
+	docker push $(SCHEMA_NAME):$(TAG)
 
 clean:
 
