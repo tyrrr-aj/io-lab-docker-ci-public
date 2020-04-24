@@ -28,13 +28,11 @@ SCHEMA_CMD = fire
 VERSION = v_$(shell ./version.sh)
 VERSION_NAME = v_$(shell cat build-number.txt)
 
-colon := :
-
 all: push
     
 
 image:
-    docker build \
+	docker build \
 		--build-arg SCHEMA_NAME="$(SCHEMA_NAME)" \
 		--build-arg SCHEMA_DESCRIPTION="$(SCHEMA_DESCRIPTION)" \
 		--build-arg SCHEMA_URL="$(SCHEMA_URL)" \
@@ -44,16 +42,14 @@ image:
 		--build-arg SCHEMA_BUILD_DATE="$(SCHEMA_BUILD_DATE)" \
 		--build-arg SCHEMA_BUILD_VERSION="$(SCHEMA_BUILD_VERSION)" \
 		--build-arg SCHEMA_CMD="$(SCHEMA_CMD)" \
-		--tag $(SCHEMA_NAME)$(colon)latest \
+		--tag $(SCHEMA_NAME):latest \
 		.
 	
-	docker tag $(SCHEMA_NAME)$(colon)latest $(SCHEMA_NAME)$(colon)$(VERSION)
+	docker tag $(SCHEMA_NAME):latest $(SCHEMA_NAME):$(VERSION)
 	
 push: image
-  docker push $(SCHEMA_NAME)$(colon)latest
-  docker push $(SCHEMA_NAME)$(colon)$(VERSION_NAME)
-    
-    
+	docker push $(SCHEMA_NAME):latest
+	docker push $(SCHEMA_NAME):$(VERSION_NAME)
 
 clean:
 
